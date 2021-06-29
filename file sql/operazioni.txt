@@ -1,0 +1,80 @@
+Operazione 1:
+insert into account(punti,mail) values(?,?)
+
+Operazione 2:
+java.time.LocalDate.now(); //data
+
+insert into scontrino(data,numero,prezzo,mail,mc_nome) values(?,?,?,?,?)
+
+update cliente set num_scontrini = ? where mail = ?
+
+while()//Stessa data e numero
+	insert into possiede(data,numero,id,quantita) values(?,?,?,?)
+	
+Operazione 3:
+DELETE FROM cuochi where cf = ?
+DELETE FROM dipendenti where cf = ?
+update mcdrive set num_dipendenti= ? where nome = ?
+
+
+Operazione 4:
+insert into cliente(mail,nome,cognome,num_scontrini) values(?,?,?,1)
+
+fai op2
+
+Operazione 5:
+insert into prodotti(nome,prezzo) values(?,?)
+
+Operazione 6:
+select mail, num_scontrini from cliente order by num_scontrini 
+
+Operazione 7:
+select * from scontrino where year(data)= ?
+
+Operazione 8:
+select nome from mcdrive where num_dipendenti between ? and ?
+
+Operazione 9:
+insert into dipendenti(cf,nome,cognome,mc_nome) values(?,?,?,?)
+insert into cuochi(cf,anni_esperienza) values(?,?)
+
+update mcdrive set num_dipendenti= ? where nome = ?
+
+Operazione 10:
+select * from prodotti;
+
+Operazione 11:
+select * from cliente where mail=?;
+
+Operazione 12:
+Select * from mcdrive where mc_nome=?;
+
+Operazione 13:
+//preliminari		
+select sum(num_scontrini) as tot_scontrini from cliente
+
+select count(numero_anni) from(select count(*) as numero_anni from scontrino group by year(data)) as numero_anni
+
+//Finale
+select ((select sum(num_scontrini) as tot_scontrini from cliente)/(select count(numero_anni) from(select count(*) as numero_anni from scontrino group by year(data)) as numero_anni)) as media
+
+Operazione 14:
+ 
+
+select * from possiede where year(data)= ? and month(data)= ?
+//test
+
+select * from possiede where year(data)= 2020 and month(data)= 2
+
+select id,sum(quantita) as totale from possiede group by id;
+
+select nome, max(totale) 
+from (select id,sum(quantita) as totale from (select * from possiede where year(data)= 2020 and month(data)= 1) group by id
+)
+where ()
+
+//Finale
+select p.nome, max(risultato.totale) as acquisti_totali from (select possiede_d.id,sum(possiede_d.quantita) as totale from (select * from possiede where year(data)= ? and month(data)= ?) as possiede_d group by possiede_d.id) as risultato, prodotti as p where p.id=risultato.id
+
+//Prova
+select p.nome, max(risultato.totale) as acquisti_totali from (select possiede_d.id,sum(possiede_d.quantita) as totale from (select * from possiede where year(data)= 2019 and month(data)= 12) as possiede_d group by possiede_d.id) as risultato, prodotti as p where p.id=risultato.id;
